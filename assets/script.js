@@ -72,11 +72,12 @@
 
   /* ───── Auto-upgrade logo cells if real PNGs exist on disk ───── */
   document.querySelectorAll('.logo-cell[data-logo]').forEach((cell) => {
+    const fallback = cell.querySelector('.logo-fallback');
+    if (!fallback) return;
     const key = cell.getAttribute('data-logo');
     const probe = new Image();
     probe.onload = () => {
-      const fallback = cell.querySelector('.logo-fallback');
-      if (fallback) fallback.remove();
+      fallback.remove();
       probe.alt = cell.getAttribute('data-tooltip') || key;
       cell.prepend(probe);
     };
